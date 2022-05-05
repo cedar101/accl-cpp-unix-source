@@ -1,8 +1,5 @@
 #include <algorithm>
 #include <iomanip>
-#ifndef __GNUC__
-#include <ios>
-#endif
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,6 +8,7 @@ using std::cin;             using std::sort;
 using std::cout;            using std::streamsize;
 using std::endl;            using std::string;
 using std::setprecision;    using std::vector;
+using std::begin;			using std::end;
 
 int main()
 {
@@ -36,12 +34,8 @@ int main()
 		homework.push_back(x);
 
 	// check that the student entered some homework grades
-#ifdef _MSC_VER
-	typedef std::vector<double>::size_type vec_sz;
-#else
-	typedef vector<double>::size_type vec_sz;
-#endif
-	vec_sz size = homework.size();
+	// using vec_sz = vector<double>::size_type vec_sz;
+	auto size = homework.size();
 	if (size == 0) {
 		cout << endl << "You must enter your grades.  "
 		                "Please try again." << endl;	
@@ -49,16 +43,20 @@ int main()
 	}
 
 	// sort the grades
-	sort(homework.begin(), homework.end());
-
+	// sort(homework.begin(), homework.end());
+	sort(begin(homework), end(homework));
+	
 	// compute the median homework grade
-	vec_sz mid = size/2;
-	double median;
-	median = size % 2 == 0 ? (homework[mid] + homework[mid-1]) / 2
-	                       : homework[mid];
+	auto mid = size/2;
+	double median = (
+		size % 2 == 0 
+		? (homework[mid] + homework[mid-1]) / 2
+	    : homework[mid]
+	);
 
 	// compute and write the final grade
-	streamsize prec = cout.precision();
+	// streamsize 
+	auto prec = cout.precision();
 	cout << "Your final grade is " << setprecision(3)
 	     << 0.2 * midterm + 0.4 * final + 0.4 * median
 	     << setprecision(prec) << endl;
