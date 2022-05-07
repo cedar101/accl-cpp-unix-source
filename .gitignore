@@ -9,6 +9,7 @@ TODO*.*
 ########### FOLDERS ############
 ################################
 build/
+builddir/
 html/
 lectures/
 
