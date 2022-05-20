@@ -14,12 +14,8 @@ using std::endl;
 using std::sort;
 using std::string;
 using std::vector;
-
-#ifdef _MSC_VER
-#include "../minmax.h"
-#else
+using std::size_t;
 using std::max;
-#endif
 
 vector<Student_info> extract_fails(vector<Student_info>& v);
 
@@ -37,8 +33,9 @@ int main()
 
 	vector<Student_info> fails = extract_fails(vs);
 
-	for (int i = 0; i < fails.size(); ++i)
-		cout << fails[i].name << " " << grade(fails[i]) << endl;
-
+	// for (vector<Student_info>::size_type i = 0; i < fails.size(); ++i)
+	// 	cout << fails[i].name << " " << grade(fails[i]) << endl;
+	for (auto fail: fails)
+		cout << fail.name << " " << grade(fail) << endl;
 	return 0;
 }

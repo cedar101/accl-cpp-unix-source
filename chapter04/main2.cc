@@ -5,11 +5,7 @@
 #include <string>
 #include <vector>
 
-#ifdef _MSC_VER
-#include "../minmax.h"
-#else
 using std::max;
-#endif
 
 using std::cin;
 using std::cout;
@@ -34,11 +30,7 @@ struct Student_info {
 // note that calling this function copies the entire argument `vector'
 double median(vector<double> vec)
 {
-#ifdef _MSC_VER
-	typedef std::vector<double>::size_type vec_sz;
-#else
 	typedef vector<double>::size_type vec_sz;
-#endif
 
 	vec_sz size = vec.size();
 	if (size == 0)
@@ -119,11 +111,7 @@ int main()
 	// alphabetize the records
 	sort(students.begin(), students.end(), compare);
 
-#ifdef _MSC_VER
-	for (std::vector<Student_info>::size_type i = 0;
-#else
 	for (vector<Student_info>::size_type i = 0;
-#endif
 	     i != students.size(); ++i) {
 
 		// write the name, padded on the right to `maxlen' `+' `1' characters
@@ -136,7 +124,7 @@ int main()
 			streamsize prec = cout.precision();
 			cout << setprecision(3) << final_grade
 			     << setprecision(prec);
-		} catch (domain_error e) {
+		} catch (const domain_error& e) {
 			cout << e.what();
 		}
 

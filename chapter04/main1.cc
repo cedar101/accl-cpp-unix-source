@@ -50,7 +50,7 @@ double grade(double midterm, double final, double homework)
 double grade(double midterm, double final, const vector<double>& hw)
 {
 	if (hw.size() == 0)
-		throw domain_error("student has done no homework");
+		throw std::domain_error("student has done no homework");
 	return grade(midterm, final, median(hw));
 }
 
@@ -101,7 +101,7 @@ int main()
 		streamsize prec = cout.precision();
 		cout << "Your final grade is " << setprecision(3)
 		     << final_grade << setprecision(prec) << endl;
-	} catch (domain_error) {
+	} catch (std::domain_error const&) {
 		cout << endl << "You must enter your grades.  "
 			"Please try again." << endl;
 		return 1;

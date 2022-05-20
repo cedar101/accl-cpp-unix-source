@@ -9,16 +9,18 @@ vector<Student_info> extract_fails(vector<Student_info>& students)
 {
 	vector<Student_info> pass, fail;
 
-#ifdef _MSC_VER
-	for (std::vector<Student_info>::size_type i = 0;
-#else
-	for (vector<Student_info>::size_type i = 0;
-#endif
-	     i != students.size(); ++i)
-		if (fgrade(students[i]))
-			fail.push_back(students[i]);
+	// for (vector<Student_info>::size_type i = 0;
+	//      i != students.size(); ++i)
+	// 	if (fgrade(students[i]))
+	// 		fail.push_back(students[i]);
+	// 	else
+	// 		pass.push_back(students[i]);
+
+	for (auto student: students)
+		if (fgrade(student))
+			fail.push_back(student);
 		else
-			pass.push_back(students[i]);
+			pass.push_back(student);
 
 	students = pass;
 	return fail;

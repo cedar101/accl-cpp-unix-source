@@ -1,26 +1,19 @@
 #include <algorithm>
 #include <iomanip>
-#ifndef __GNUC__
-#include <ios>
-#endif
 #include <iostream>
 #include <stdexcept>
 #include <string>
 #include <vector>
+
 #include "grade.h"
 #include "Student_info.h"
 
 using std::cin;                     using std::setprecision;
 using std::cout;                    using std::sort;
-using std::domain_error;            using std::streamsize;
+using std::domain_error;            // using std::streamsize;
 using std::endl;                    using std::string;
-#ifndef _MSC_VER
 using std::max;                     using std::vector;
-#else
-using std::vector;
-
-#include "../minmax.h"
-#endif
+using std::begin;					using std::end;
 
 int main()
 {
@@ -38,27 +31,22 @@ int main()
 	}
 
 	// alphabetize the student records
-	sort(students.begin(), students.end(), compare);
+	sort(begin(students), end(students), compare);
 
 	// write the names and grades
-#ifdef _MSC_VER
-	for (std::vector<Student_info>::size_type i = 0;
-#else
-	for (vector<Student_info>::size_type i = 0;
-#endif
-	     i != students.size(); ++i) {
-
+	for (auto student : students) {
 		// write the name, padded on the right to `maxlen' `+' `1' characters
-		cout << students[i].name
-		     << string(maxlen + 1 - students[i].name.size(), ' ');
+		cout << student.name
+		     << string(maxlen + 1 - student.name.size(), ' ');
 
 		// compute and write the grade
 		try {
-			double final_grade = grade(students[i]);
-			streamsize prec = cout.precision();
+			double final_grade = grade(student);
+			// streamsize 
+			auto prec = cout.precision();
 			cout << setprecision(3) << final_grade
 			     << setprecision(prec);
-		} catch (domain_error e) {
+		} catch (const std::domain_error& e) {
 			cout << e.what();
 		}
 		cout << endl;

@@ -5,12 +5,7 @@
 #include "grade.h"
 #include "Student_info.h"
 
-#ifdef _MSC_VER
-#include "../minmax.h"
-#else
 using std::max;
-#endif
-
 using std::cin;
 using std::cout;
 using std::endl;
@@ -19,17 +14,6 @@ using std::string;
 
 list<Student_info> extract_fails(list<Student_info>& v);
 
-#ifdef _MSC_VER
-// The definition of Student_info::operator< is necessary
-// under Microsoft Visual C++ because the compiler does not
-// support the ability to pass a comparison function as an
-// argument to list::sort
-
-bool operator<(const Student_info& x, const Student_info& y)
-{
-	return compare(x, y);
-}
-#endif
 
 int main()
 {
@@ -41,22 +25,16 @@ int main()
                 vs.push_back(s);
         }
 
-#ifdef _MSC_VER
-	vs.sort();
-#else
         vs.sort(compare);
-#endif
 
 	list<Student_info> fails = extract_fails(vs);
 
-#ifdef _MSC_VER
-	std::list<Student_info>::iterator i;
-#else
-	list<Student_info>::iterator i;
-#endif
+	// for (list<Student_info>::iterator i = begin(fails); i != end(fails); ++i)
+	// for (decltype(fails)::iterator i = begin(fails); i != end(fails); ++i)
+	// 	cout << i->name << " " << grade(*i) << endl;
 
-	for (i = fails.begin(); i != fails.end(); ++i)
-		cout << i->name << " " << grade(*i) << endl;
+        for (auto i: fails)
+                cout << i.name << " " << grade(i) << endl;
 
 	return 0;
 }
