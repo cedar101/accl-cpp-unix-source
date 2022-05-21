@@ -12,6 +12,8 @@ using std::endl;
 using std::ostream_iterator;
 using std::string;
 using std::vector;
+using std::cbegin;
+using std::cend;
 
 int main()
 {
@@ -22,15 +24,16 @@ int main()
 	p.push_back("illustrate");
 	p.push_back("framing");
 
-	ostream_iterator<string>ofile(cout, "\n");
-	copy(p.begin(), p.end(), ofile);
+	ostream_iterator<string> ofile(cout, "\n");
+	copy(cbegin(p), cend(p), ofile);
 	cout << endl;
 
 	vector<string> f = frame(p);
-	copy(f.begin(), f.end(), ofile);	cout << endl;
+	copy(cbegin(f), cend(f), ofile);
+	cout << endl;
 
-	vector<string> h = hcat(frame(p), p);
-	copy(h.begin(), h.end(), ofile);
+	vector<string> h = hcat(p, frame(p));
+	copy(cbegin(h), cend(h), ofile);
 	cout << endl;
 
 	return 0;
