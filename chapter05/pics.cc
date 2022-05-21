@@ -75,10 +75,7 @@ vector<string> hcat(const vector<string>& left,
 	bool left_ended = false, right_ended = false;
 
 	// continue until we've seen all rows from both pictures
-	while (true) {
-		if (left_ended && right_ended)
-			break;	
-		
+	while (!left_ended || !right_ended) {	
 		// construct new `string' to hold characters from both pictures
 		string s;
 
